@@ -18,4 +18,8 @@ public class Position {
                 y == position.y;
     }
 
+    public String toString(){
+        return "["+x+","+y+"]";
+    }
+
 }

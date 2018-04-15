@@ -12,7 +12,7 @@ public class Agent {
     }
 
     public Integer computeScore(){
-        computeScore(this.model);
+        return computeScore(this.model);
     }
 
     public Integer computeScore(Model model){

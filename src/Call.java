@@ -42,4 +42,10 @@ public class Call {
     public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
+
+    public String toString(){
+        String s = "Chiamata da : "+ startPos.toString() + " a "+ endPos.toString() + " \n";
+        s += "inizio al tempo: "+startTime+" fine al tempo: "+endTime+ " \n";
+        return s;
+    }
 }
