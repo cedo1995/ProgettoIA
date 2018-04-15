@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -23,10 +24,10 @@ public class ModelParser {
 
             List<Car> cars = new LinkedList<>();
             for(int c = 0; c < nCars; c++){
-                cars.add(new Car(new LinkedList<>()));
+                cars.add(new Car(new ArrayList<>()));
             }
 
-            List<Call> calls = new LinkedList<>();
+            List<Call> calls = new ArrayList<>();
 
             for(int r = 0; r < nRides; r++){
                 String line = reader.readLine();

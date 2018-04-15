@@ -54,4 +54,5 @@ public class Model {
         s += "Macchine: \n";
         return s;
     }
+
 }
