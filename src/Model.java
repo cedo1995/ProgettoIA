@@ -41,7 +41,7 @@ public class Model {
         this.carList = carList;
     }
 
-    public String toString(){
+    public String toString() {
         String s = "Modello con: \n";
         s += dimI + " righe \n";
         s += dimJ + " colonne \n";
@@ -49,7 +49,7 @@ public class Model {
         s += bonus + " bonus \n\n";
         s += "Chiamate: \n";
         for (Call call : callList) {
-            s+= call.toString();
+            s += call.toString();
         }
         s += "Macchine: \n";
         return s;
