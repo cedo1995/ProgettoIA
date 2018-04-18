@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 public class Model {
@@ -6,15 +7,16 @@ public class Model {
     private int maxTime;
     private int bonus;
     private List<Call> callList;
-    private List<Car> carList;
+    private int n_car;
 
-    public Model(int dimI, int dimJ, int bonus, int maxTime, List<Call> callList, List<Car> carList) {
+    public Model(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Call> callList) {
         this.dimI = dimI;
         this.dimJ = dimJ;
         this.maxTime = maxTime;
         this.bonus = bonus;
         this.callList = callList;
-        this.carList = carList;
+        this.n_car = cars;
+        sortCalls();
     }
 
     public int getBonus() {
@@ -33,12 +35,21 @@ public class Model {
         this.callList = callList;
     }
 
-    public List<Car> getCarList() {
-        return carList;
+    public int getCarsNumber() {
+        return n_car;
     }
 
-    public void setCarList(List<Car> carList) {
-        this.carList = carList;
+    public void setCarList(int cars) {
+        this.n_car = cars;
+    }
+
+    public void sortCalls(){
+        callList.sort(new Comparator<Call>() {
+            @Override
+            public int compare(Call call1, Call call2) {
+                return call1.getStartTime() - call2.getStartTime();
+            }
+        });
     }
 
     public String toString() {
@@ -46,12 +57,12 @@ public class Model {
         s += dimI + " righe \n";
         s += dimJ + " colonne \n";
         s += maxTime + " come tempo massimo \n";
-        s += bonus + " bonus \n\n";
+        s += bonus + " bonus \n";
+        s += n_car + " macchine \n\n";
         s += "Chiamate: \n";
         for (Call call : callList) {
             s += call.toString();
         }
-        s += "Macchine: \n";
         return s;
     }
 }

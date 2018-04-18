@@ -1,3 +1,3 @@
 interface Algorithm {
-    Model computeModel(Model model);
+    Solution computeModel(Model model);
 }

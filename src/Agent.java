@@ -7,18 +7,10 @@ public class Agent {
         this.algorithm = algorithm;
     }
 
-    public void computeModelAndReplace(){
-        this.model = algorithm.computeModel(model);
+    public Solution applyAlgorithm(){
+        return algorithm.computeModel(model);
     }
 
-    public Integer computeScore(){
-        return computeScore(this.model);
-    }
 
-    public Integer computeScore(Model model){
-        /**
-         * ToDo
-         */
-        return 0;
-    }
+
 }

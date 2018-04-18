@@ -21,11 +21,6 @@ public class ModelParser {
             int bonus = Integer.parseInt(tokenizer.nextToken());
             int maxTime = Integer.parseInt(tokenizer.nextToken());
 
-            List<Car> cars = new LinkedList<>();
-            for(int c = 0; c < nCars; c++){
-                cars.add(new Car(new LinkedList<>()));
-            }
-
             List<Call> calls = new LinkedList<>();
 
             for(int r = 0; r < nRides; r++){
@@ -45,7 +40,7 @@ public class ModelParser {
                 calls.add(new Call(startP,endP, startT, endT));
             }
 
-            model = new Model(dimI, dimJ, bonus, maxTime, calls, cars);
+            model = new Model(dimI, dimJ, bonus, maxTime, nCars, calls);
 
         } catch (IOException e) {
             e.printStackTrace();
