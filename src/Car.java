@@ -19,24 +19,46 @@ public class Car {
     public Position computePositionAtTime(int time){
         Position currentPos = new Position(0,0);
         int currentTime = 0;
+
         for (Call call : callList) {
             int distanceFromStart = Position.distance(currentPos,call.getStartPos());
-            int distanceToEnd = Position.distance(call.getStartPos(),call.getEndPos());
+            int realStartTime = Math.max(currentTime+distanceFromStart, call.getStartTime());
 
-            int max = Math.max(currentTime+distanceFromStart, call.getStartTime());
-
-            if(time > max+distanceToEnd){
-                currentPos = call.getEndPos();
-                currentTime += max+distanceToEnd;
-            } else{
-                if(time < max){
-                    currentPos = Position.travel(call.getStartPos(), currentPos, max-time);
-                } else{
-                    currentPos = Position.travel(call.getStartPos(), call.getEndPos(),time-max);
+            if(time <= realStartTime){
+                return Position.travel(call.getStartPos(), currentPos,realStartTime - time);
+            }else{
+                if(time < realStartTime+call.length()){
+                    return Position.travel(call.getStartPos(), currentPos,time - realStartTime);
+                }
+                else{
+                    currentTime = realStartTime+call.length();
+                    currentPos = call.getEndPos();
                 }
             }
         }
         return currentPos;
+    }
+
+    public boolean isLegal(){
+        int time = 0;
+        Position position = new Position(0,0);
+        for(Call call: callList){
+            time += Math.max(Position.distance(position, call.getStartPos()),call.getStartTime());
+            time += call.length();
+            if(time > call.getEndTime())
+                return false;
+            position = call.getEndPos();
+        }
+        return true;
+    }
+
+    public String toString(){
+        String s = "";
+
+        for(Call call: callList){
+            s += call.toString();
+        }
+        return s;
     }
 
 

@@ -16,7 +16,6 @@ public class Model {
         this.bonus = bonus;
         this.callList = callList;
         this.n_car = cars;
-        sortCalls();
     }
 
     public int getBonus() {
@@ -43,11 +42,20 @@ public class Model {
         this.n_car = cars;
     }
 
-    public void sortCalls(){
+    public void sortCallsStart(){
         callList.sort(new Comparator<Call>() {
             @Override
             public int compare(Call call1, Call call2) {
                 return call1.getStartTime() - call2.getStartTime();
+            }
+        });
+    }
+
+    public void sortCallsEnd(){
+        callList.sort(new Comparator<Call>() {
+            @Override
+            public int compare(Call call1, Call call2) {
+                return call1.getEndTime() - call2.getEndTime();
             }
         });
     }

@@ -12,5 +12,18 @@ public class Agent {
     }
 
 
+    public int computeScore(Solution solution){
+        int score = 0;
+        for (Car car: solution.getCarRides()) {
+            for(Call call: car.getCallList()){
+                if(car.computePositionAtTime(call.getStartTime()).equals(call.getStartPos())){
+                    score += model.getBonus();
+                }
+                score += call.length();
+            }
+        }
+        return score;
+    }
+
 
 }

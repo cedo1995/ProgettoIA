@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Algorithm1 implements Algorithm {
-    private int bonus = 2;
+    //private int bonus = 2;
 
     @Override
     public Solution computeModel(Model model) {
+        model.sortCallsStart();
 
         List<Call> unassignedCalls = model.getCallList();
         List<Car> cars = new ArrayList<>();
@@ -19,15 +20,18 @@ public class Algorithm1 implements Algorithm {
                 Call bestChoice = null;
                 for (Call call : unassignedCalls) {
                     if (canTakeCall(car, call)) {
-                        if (bestChoice == null)
+                        if (bestChoice == null) {
                             bestChoice = call;
+                        }
                         else {
                             int score1 = bestChoice.length();
                             int score2 = call.length();
-                            if (canTakeWithBonus(car, bestChoice))
-                                score1 += bonus;
-                            if (canTakeWithBonus(car, bestChoice))
-                                score2 += bonus;
+                            if (canTakeWithBonus(car, bestChoice)) {
+                                score1 += model.getBonus();
+                            }
+                            if (canTakeWithBonus(car, call)) {
+                                score2 += model.getBonus();
+                            }
                             if (score2 > score1)
                                 bestChoice = call;
                         }
@@ -45,24 +49,14 @@ public class Algorithm1 implements Algorithm {
     }
 
     private boolean canTakeCall(Car car, Call call){
-        if(car.getCallList().isEmpty()){
-            int distance = Position.distance(new Position(0,0), call.getStartPos());
-            int takeBy = call.getEndTime() - call.length() - distance;
-            if(takeBy >= 0){
-                return true;
-            } else{
-                return false;
-            }
-        } else {
-            //get last element
-            Call lastCall = car.getCallList().get(car.getCallList().size() - 1);
-            int distance = Position.distance(lastCall.getEndPos(), call.getStartPos());
-            int takeBy = call.getEndTime() - call.length() - distance;
-            if(car.computePositionAtTime(takeBy) == lastCall.getEndPos()){
-                return true;
-            } else{
-                return false;
-            }
+        car.getCallList().add(call);
+        if(car.isLegal()){
+            car.getCallList().remove(call);
+            return true;
+        }
+        else{
+            car.getCallList().remove(call);
+            return false;
         }
     }
 
@@ -80,7 +74,8 @@ public class Algorithm1 implements Algorithm {
             Call lastCall = car.getCallList().get(car.getCallList().size() - 1);
             int distance = Position.distance(lastCall.getEndPos(), call.getStartPos());
             int takeBy = call.getStartTime() - distance;
-            if(car.computePositionAtTime(takeBy) == lastCall.getEndPos()){
+            // this check is no exact cause it can happens that a car is on the same place in another time (example)
+            if(takeBy >=0 && car.computePositionAtTime(takeBy).equals(lastCall.getEndPos())){
                 return true;
             } else{
                 return false;
