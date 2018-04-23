@@ -43,6 +43,10 @@ public class Call {
         this.endTime = endTime;
     }
 
+    public int length(){
+        return Position.distance(startPos,endPos);
+    }
+
     public String toString(){
         String s = "Chiamata da : "+ startPos.toString() + " a "+ endPos.toString() + " \n";
         s += "inizio al tempo: "+startTime+" fine al tempo: "+endTime+ " \n";

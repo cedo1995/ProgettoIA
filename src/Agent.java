@@ -7,18 +7,23 @@ public class Agent {
         this.algorithm = algorithm;
     }
 
-    public void computeModelAndReplace(){
-        this.model = algorithm.computeModel(model);
+    public Solution applyAlgorithm(){
+        return algorithm.computeModel(model);
     }
 
-    public Integer computeScore(){
-        return computeScore(this.model);
+
+    public int computeScore(Solution solution){
+        int score = 0;
+        for (Car car: solution.getCarRides()) {
+            for(Call call: car.getCallList()){
+                if(car.computePositionAtTime(call.getStartTime()).equals(call.getStartPos())){
+                    score += model.getBonus();
+                }
+                score += call.length();
+            }
+        }
+        return score;
     }
 
-    public Integer computeScore(Model model){
-        /**
-         * ToDo
-         */
-        return 0;
-    }
+
 }

@@ -46,7 +46,7 @@ public class ModelParser {
                 calls.add(new Call(startP,endP, startT, endT));
             }
 
-            model = new Model(dimI, dimJ, bonus, maxTime, calls, cars);
+            model = new Model(dimI, dimJ, bonus, maxTime, nCars, calls);
 
         } catch (IOException e) {
             e.printStackTrace();
