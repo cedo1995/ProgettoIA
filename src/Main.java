@@ -15,11 +15,11 @@ public class Main {
             paths.add("C:/Users/Paolo/Downloads/e_high_bonus.in");
 
         }else if(user[1].equals(System.getProperty("user.name"))){
-            paths.add("/home/cedo/Downloads/IA/a_example.in");
-            paths.add("/home/cedo/Downloads/IA/b_should_be_easy.in");
-            paths.add("/home/cedo/Downloads/IA/c_no_hurry.in");
-            paths.add("/home/cedo/Downloads/IA/d_metropolis.in");
-            paths.add("/home/cedo/Downloads/IA/e_high_bonus.in");
+            paths.add("/home/cedo/IdeaProjects/ProgettoIA/a_example.in");
+            paths.add("/home/cedo/IdeaProjects/ProgettoIA/b_should_be_easy.in");
+            paths.add("/home/cedo/IdeaProjects/ProgettoIA/c_no_hurry.in");
+            paths.add("/home/cedo/IdeaProjects/ProgettoIA/d_metropolis.in");
+            paths.add("/home/cedo/IdeaProjects/ProgettoIA/e_high_bonus.in");
         }
 
         int tot = 0;
