@@ -1,4 +1,5 @@
 import algos.Algorithm1;
+import algos.Algorithm2;
 import core.Agent;
 import core.Model;
 import core.ModelParser;
@@ -23,7 +24,7 @@ public class Main {
             ModelParser parser = new ModelParser();
             Model model = parser.parseFile(path);
             // System.out.println(model.toString());
-            Agent agent = new Agent(model, new Algorithm1());
+            Agent agent = new Agent(model, new Algorithm2(0,7,10,10,10));
 
             Solution solution = agent.applyAlgorithm();
             int score = agent.computeScore(solution);

@@ -44,6 +44,12 @@ public class Model {
         this.n_car = cars;
     }
 
+    public int getDimI(){ return dimI; }
+
+    public int getDimJ(){ return dimJ; }
+
+    public int getMaxTime() {return  maxTime;}
+
     public void sortCallsStart(){
         rideList.sort(new Comparator<Ride>() {
             @Override

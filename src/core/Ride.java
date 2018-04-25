@@ -5,6 +5,7 @@ public class Ride {
     private Position endPos;
     private int startTime;
     private int endTime;
+    private int score = 0;
 
     public Ride(Position startPos, Position endPos, int startTime, int endTime) {
         this.startPos = startPos;
