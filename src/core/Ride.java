@@ -1,10 +1,12 @@
-public class Call {
+package core;
+
+public class Ride {
     private Position startPos;
     private Position endPos;
     private int startTime;
     private int endTime;
 
-    public Call(Position startPos, Position endPos, int startTime, int endTime) {
+    public Ride(Position startPos, Position endPos, int startTime, int endTime) {
         this.startPos = startPos;
         this.endPos = endPos;
         this.startTime = startTime;

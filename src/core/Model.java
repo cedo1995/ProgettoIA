@@ -1,3 +1,5 @@
+package core;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -6,15 +8,15 @@ public class Model {
     private int dimJ;
     private int maxTime;
     private int bonus;
-    private List<Call> callList;
+    private List<Ride> rideList;
     private int n_car;
 
-    public Model(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Call> callList) {
+    public Model(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Ride> rideList) {
         this.dimI = dimI;
         this.dimJ = dimJ;
         this.maxTime = maxTime;
         this.bonus = bonus;
-        this.callList = callList;
+        this.rideList = rideList;
         this.n_car = cars;
     }
 
@@ -26,12 +28,12 @@ public class Model {
         this.bonus = bonus;
     }
 
-    public List<Call> getCallList() {
-        return callList;
+    public List<Ride> getRideList() {
+        return rideList;
     }
 
-    public void setCallList(List<Call> callList) {
-        this.callList = callList;
+    public void setRideList(List<Ride> rideList) {
+        this.rideList = rideList;
     }
 
     public int getCarsNumber() {
@@ -43,19 +45,19 @@ public class Model {
     }
 
     public void sortCallsStart(){
-        callList.sort(new Comparator<Call>() {
+        rideList.sort(new Comparator<Ride>() {
             @Override
-            public int compare(Call call1, Call call2) {
-                return call1.getStartTime() - call2.getStartTime();
+            public int compare(Ride ride1, Ride ride2) {
+                return ride1.getStartTime() - ride2.getStartTime();
             }
         });
     }
 
     public void sortCallsEnd(){
-        callList.sort(new Comparator<Call>() {
+        rideList.sort(new Comparator<Ride>() {
             @Override
-            public int compare(Call call1, Call call2) {
-                return call1.getEndTime() - call2.getEndTime();
+            public int compare(Ride ride1, Ride ride2) {
+                return ride1.getEndTime() - ride2.getEndTime();
             }
         });
     }
@@ -68,8 +70,8 @@ public class Model {
         s += bonus + " bonus \n";
         s += n_car + " macchine \n\n";
         s += "Chiamate: \n";
-        for (Call call : callList) {
-            s += call.toString();
+        for (Ride ride : rideList) {
+            s += ride.toString();
         }
         return s;
     }
