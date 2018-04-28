@@ -18,22 +18,27 @@ public class Main {
         paths.add("./test_models/d_metropolis.in");
         paths.add("./test_models/e_high_bonus.in");
 
-        int tot = 0;
+        //int tot = 0;
+        for (int i=-10;i<11;i++){
+            int tot = 0;
+            System.out.println("I="+i);
+            for(String path: paths) {
+                ModelParser parser = new ModelParser();
+                Model model = parser.parseFile(path);
+                // System.out.println(model.toString());
 
-        for(String path: paths) {
-            ModelParser parser = new ModelParser();
-            Model model = parser.parseFile(path);
-            // System.out.println(model.toString());
-            Agent agent = new Agent(model, new Algorithm2(0,7,10,10,10));
+                Agent agent = new Agent(model, new Algorithm2(i,0,8,30,-1));
 
-            Solution solution = agent.applyAlgorithm();
-            int score = agent.computeScore(solution);
-            System.out.println(score);
-            tot += score;
-           // System.out.println(solution.toString());
+                Solution solution = agent.applyAlgorithm();
+                int score = agent.computeScore(solution);
+                System.out.println(score);
+                tot += score;
+                //System.out.println(solution.toString());
+            }
+
+            System.out.println("Total score = "+tot);
         }
 
-        System.out.println("Total score = "+tot);
 
     }
 }

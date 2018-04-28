@@ -30,17 +30,11 @@ public class ScoredMap {
 
     }
 
-    /*public Ride chooseBestRide(Position p){
-        for (Ride r:startingRidesMap.get(p)){
-            if (r.){
-
-            }
-        }
-
-    }*/
-
     public HashMap<Position,List<Ride>> getStartingRidesMap() {
         return startingRidesMap;
+    }
+    public List<Ride> getStartingRidesMap(Position p){
+        return startingRidesMap.get(p);
     }
 
     public HashMap<Position,List<Ride> > getEndingRidesMap() {
