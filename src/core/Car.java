@@ -44,13 +44,20 @@ public class Car {
         int time = 0;
         Position position = new Position(0,0);
         for(Ride ride : rideList){
-            time += Math.max(Position.distance(position, ride.getStartPos()), ride.getStartTime());
+            time = Math.max(time + Position.distance(position, ride.getStartPos()), ride.getStartTime());
             time += ride.length();
             if(time > ride.getEndTime())
                 return false;
             position = ride.getEndPos();
         }
         return true;
+    }
+
+    public boolean testRide(Ride ride){
+        rideList.add(ride);
+        boolean result = isLegal();
+        rideList.remove(ride);
+        return result;
     }
 
     public String toString(){
