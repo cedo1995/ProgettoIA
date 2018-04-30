@@ -1,17 +1,27 @@
 package core;
 
 public class Ride {
+    protected static int id;
     private Position startPos;
     private Position endPos;
     private int startTime;
     private int endTime;
     private int score = 0;
 
+
     public Ride(Position startPos, Position endPos, int startTime, int endTime) {
+	    this.id+=1;
         this.startPos = startPos;
         this.endPos = endPos;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        Ride.id = id;
     }
 
     public Position getStartPos() {

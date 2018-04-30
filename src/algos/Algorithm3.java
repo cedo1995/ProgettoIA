@@ -18,13 +18,13 @@ public class Algorithm3 implements Algorithm {
         ScoredMap scoredMap=new ScoredMap(model);
         System.out.println(scoredMap.getStartingRidesMap()+"");
         Position actualPosition = new Position(0,0);
-        outerloop:      //usato per quando non ci sono più rides disponibili
-        for(int time=0;time<model.getMaxTime();time++){
+        int time=0;
+        for (Car car:cars){
             List<Ride> rideListCurrentPosition=scoredMap.getStartingRidesMap(actualPosition);
             rideListCurrentPosition=isLegal(rideListCurrentPosition,time,actualPosition);
             List<Ride> bestRides=new ArrayList<>();
             List<Ride> possibleRides=new ArrayList<>();
-            Ride bestChoice;
+            Ride bestChoice=null;
             for(Ride r:rideListCurrentPosition){
 
                 if( r.getStartTime()==time){    //BONUS RIDE
@@ -36,7 +36,7 @@ public class Algorithm3 implements Algorithm {
             switch (bestRides.size()) {
                 case 0:
                     if (possibleRides.size() == 0) {
-                        finish = true;
+                        //finish = true;
                     } else {
                         bestRides = sortMinimumLength(possibleRides);
                         //ora gestisco la scelta della migliore corsa a parità di distanza confrontando quante corse ci sono nella
@@ -56,6 +56,17 @@ public class Algorithm3 implements Algorithm {
                     break;
 
             }
+            if (car.testRide(bestChoice)){
+                List<Ride> newRideList=car.getRideList();
+                newRideList.add(bestChoice);
+                car.setRideList(newRideList);
+                List<Boolean>setFree=new ArrayList<>();
+                for(int i=0;i<bestChoice.length();i++){
+                    setFree.add(false);
+                }
+                car.setIsFree(setFree);
+            }
+
         }
         /*List<Car> cars = new ArrayList<>();
         for(int n = 0; n < model.getCarsNumber(); n++){
@@ -79,7 +90,6 @@ public class Algorithm3 implements Algorithm {
         List<Ride> rideL=new ArrayList<>();
         int time=prevTime;
         for(Ride ride : rideList){
-            time += ride.getStartTime();
             time += ride.length();
             if(time <= ride.getEndTime())
                 rideL.add(ride);
