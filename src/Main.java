@@ -1,9 +1,7 @@
 import algos.Algorithm1;
 import algos.Algorithm2;
-import core.Agent;
-import core.Model;
-import core.ModelParser;
-import core.Solution;
+import algos.WasteAlgorithm;
+import core.*;
 
 import java.util.ArrayList;
 
