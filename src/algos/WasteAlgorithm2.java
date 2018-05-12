@@ -78,6 +78,21 @@ public class WasteAlgorithm2 implements Algorithm {
                 }
             }
         }
+
+        if(unassignedRides.size() > 0) {
+            for (Car car : cars) {
+                for (int j = 0; j < unassignedRides.size(); j++) {
+                    Ride ride = unassignedRides.get(j);
+                    for (int i = 0; i < car.getRideList().size(); i++) {
+                        car.getRideList().add(i, ride);
+                        if (!car.isLegal())
+                            car.getRideList().remove(i);
+                        else
+                            unassignedRides.remove(j);
+                    }
+                }
+            }
+        }
         return new Solution(cars);
     }
 
