@@ -26,7 +26,7 @@ public class Algorithm2 implements Algorithm {
 
     @Override
     public Solution computeModel(Model model) {
-        center = new Position(model.getDimI()/2, model.getDimJ()/2);
+        center = new Position(model.getDimI()/2, model.getDimJ()/2);    //center position of map
 
         ScoredModel scoredModel = new ScoredModel(model);
         for(Ride ride: scoredModel.getRideList()){
@@ -36,10 +36,10 @@ public class Algorithm2 implements Algorithm {
             score += Position.distance(ride.getEndPos(),center)*endPosMult;
             score += ride.length()*lengthMult;
 
-            ((ScoredRide) ride).setScore(score);
+            ((ScoredRide) ride).setScore(score);        //score of a ride is given by a combination of different terms
         }
 
-        scoredModel.sortCallsScoreDesc();
+        scoredModel.sortCallsScoreDesc();       //scores in descending order
 
         List<Ride> unassignedRides = scoredModel.getRideList();
         List<Car> cars = new ArrayList<>();
@@ -48,8 +48,8 @@ public class Algorithm2 implements Algorithm {
         }
 
         for(Car car: cars) {
-            List<Ride> assignedRides = car.getRideList();
-            for(int i = 0; i < unassignedRides.size(); i++){
+            List<Ride> assignedRides = car.getRideList();       //recharge the already assigned rides to car
+            for(int i = 0; i < unassignedRides.size(); i++){    //indexing the unassigned rides
                 Ride ride = unassignedRides.remove(i);
                 assignedRides.add(ride);
                 if(! car.isLegal()){

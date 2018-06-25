@@ -17,7 +17,7 @@ public class Ride {
         this.endTime = endTime;
     }
     public static int getId() {
-        return id;
+         return id;
     }
 
     public static void setId(int id) {
@@ -56,7 +56,7 @@ public class Ride {
         this.endTime = endTime;
     }
 
-    public int length(){
+    public int length(){        //length of ride is the difference from startingPoint to endPoint
         return Position.distance(startPos,endPos);
     }
 

@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class ModelParser {
 
-    public Model parseFile(String path){
+    public Model parseFile(String path){    //read input file
         Model model = null;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -24,13 +24,13 @@ public class ModelParser {
             int maxTime = Integer.parseInt(tokenizer.nextToken());
 
             List<Car> cars = new LinkedList<>();
-            for(int c = 0; c < nCars; c++){
+            for(int c = 0; c < nCars; c++){     //create nCars
                 cars.add(new Car(new ArrayList<>()));
             }
 
             List<Ride> rides = new ArrayList<>();
 
-            for(int r = 0; r < nRides; r++){
+            for(int r = 0; r < nRides; r++){    //create nRides with their specs
                 String line = reader.readLine();
                 StringTokenizer tok = new StringTokenizer(line);
 
@@ -47,7 +47,7 @@ public class ModelParser {
                 rides.add(new Ride(startP,endP, startT, endT));
             }
 
-            model = new Model(dimI, dimJ, bonus, maxTime, nCars, rides);
+            model = new Model(dimI, dimJ, bonus, maxTime, nCars, rides);    //create final model
 
         } catch (IOException e) {
             e.printStackTrace();

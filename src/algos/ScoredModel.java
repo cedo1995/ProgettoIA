@@ -20,7 +20,7 @@ public class ScoredModel extends Model {
         }
     }
 
-    public void sortCallsScoreDesc(){
+    public void sortCallsScoreDesc(){       //return a descending sort of rides in terms of their score
         getRideList().sort(new Comparator<Ride>() {
             @Override
             public int compare(Ride ride1, Ride ride2) {
