@@ -6,10 +6,10 @@ import java.util.List;
 public class Model {
     private int dimI;
     private int dimJ;
-    private int maxTime;
-    private int bonus;
+    private int maxTime;        //specified in each file
+    private int bonus;      //specified in each file
     private List<Ride> rideList;
-    private int n_car;
+    private int n_car;      //specified in each file
 
     public Model(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Ride> rideList) {
         this.dimI = dimI;
@@ -50,7 +50,7 @@ public class Model {
 
     public int getMaxTime() {return  maxTime;}
 
-    public void sortCallsStart(){
+    public void sortCallsStart(){       //we order rides comparing starting time for each one
         rideList.sort(new Comparator<Ride>() {
             @Override
             public int compare(Ride ride1, Ride ride2) {
@@ -59,7 +59,7 @@ public class Model {
         });
     }
 
-    public void sortCallsEnd(){
+    public void sortCallsEnd(){     //we order rides comparing ending time for each one
         rideList.sort(new Comparator<Ride>() {
             @Override
             public int compare(Ride ride1, Ride ride2) {

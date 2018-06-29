@@ -21,8 +21,8 @@ public class ScoredMap {
                 for (int j=0;j<model.getDimJ();j++){
                     Position pos=new Position(i,j);
                     if (r.getStartPos().equals(pos)){
-                        startingRidesMap.get(pos).add(r);    //ad ogni posizione ci sono le corse che partono da quel punto
-                        endingRidesMap.get(r.getEndPos()).add(r); //ad ogni posizione ci sono le corse che arrivano a quel punto
+                        startingRidesMap.get(pos).add(r);    //for each positions of the map there are rides that start in that point
+                        endingRidesMap.get(r.getEndPos()).add(r); //for each positions of the map there are rides that end in that point
                     }
                 }
             }
@@ -30,19 +30,19 @@ public class ScoredMap {
 
     }
 
-    public HashMap<Position,List<Ride>> getStartingRidesMap() {
+    public HashMap<Position,List<Ride>> getStartingRidesMap() {     //return HashMap that links Position and the rides that start there
         return startingRidesMap;
     }
-    public List<Ride> getStartingRidesMap(Position p){
+    public List<Ride> getStartingRidesMap(Position p){      //return a list of rides that start in a given position
         return startingRidesMap.get(p);
     }
 
-    public HashMap<Position,List<Ride> > getEndingRidesMap() {
+    public HashMap<Position,List<Ride> > getEndingRidesMap() {      //return HashMap that links Position and the rides that ends there
         return endingRidesMap;
     }
 
 
-    public void sortCallsStart(Position p){
+    public void sortCallsStart(Position p){         //return an ascending sort of rides in terms of their starting time
         startingRidesMap.get(p).sort(new Comparator<Ride>() {
             @Override
             public int compare(Ride ride1, Ride ride2) {
@@ -51,7 +51,7 @@ public class ScoredMap {
         });
     }
 
-    public void sortCallsEnd(Position p){
+    public void sortCallsEnd(Position p){       //return an ascending sort of rides in terms of their ending time
         endingRidesMap.get(p).sort(new Comparator<Ride>() {
             @Override
             public int compare(Ride ride1, Ride ride2) {

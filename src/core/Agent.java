@@ -4,7 +4,7 @@ public class Agent {
     private Model model;
     private Algorithm algorithm;
 
-    public Agent(Model model, Algorithm algorithm){
+    public Agent(Model model, Algorithm algorithm){ //Agent's constructor
         this.model = model;
         this.algorithm = algorithm;
     }
@@ -14,7 +14,7 @@ public class Agent {
     }
 
 
-    public int computeScore(Solution solution){
+    public int computeScore(Solution solution){ //calculate score for the solution in the parameter
         int score = 0;
         for (Car car: solution.getCarRides()) {
             for(Ride ride : car.getRideList()){

@@ -10,20 +10,20 @@ public class Algorithm1 implements Algorithm {
 
     @Override
     public Solution computeModel(Model model) {
-        model.sortCallsStart();
+        model.sortCallsStart();     //order the rides in terms of startingTime
 
-        List<Ride> unassignedRides = model.getRideList();
+        List<Ride> unassignedRides = model.getRideList();       //in this point the list contains all the rides in the model
         List<Car> cars = new ArrayList<>();
         for(int n = 0; n < model.getCarsNumber(); n++){
             cars.add(new Car(new ArrayList<>()));
         }
-        for(Car car: cars) {
+        for(Car car: cars) {            //for each car
             boolean finish = false;
-            List<Ride> assignedRides = car.getRideList();
+            List<Ride> assignedRides = car.getRideList();   //initially empty for each car
             while(!finish) {
                 Ride bestChoice = null;
                 for (Ride ride : unassignedRides) {
-                    if (canTakeCall(car, ride)) {
+                    if (canTakeCall(car, ride)) {       //check if car can take ride in terms of time and distance to get at ride's startingPoint
                         if (bestChoice == null) {
                             bestChoice = ride;
                         }
@@ -36,16 +36,16 @@ public class Algorithm1 implements Algorithm {
                             if (canTakeWithBonus(car, ride)) {
                                 score2 += model.getBonus();
                             }
-                            if (score2 > score1)
+                            if (score2 > score1)        //compare scores to choose best ride
                                 bestChoice = ride;
                         }
                     }
                 }
-                if (bestChoice == null)
+                if (bestChoice == null)     //unassignedRides list is empty
                     finish = true;
                 else{
-                    assignedRides.add(bestChoice);
-                    unassignedRides.remove(bestChoice);
+                    assignedRides.add(bestChoice);      //assign the best ride to the car
+                    unassignedRides.remove(bestChoice);     //remove the just assigned ride
                 }
             }
         }

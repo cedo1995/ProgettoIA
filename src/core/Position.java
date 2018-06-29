@@ -5,7 +5,7 @@ public class Position {
     private int x;
     private int y;
 
-    public static Position travel(Position from, Position to, int distance){
+    public static Position travel(Position from, Position to, int distance){        //cost of travel from the position of the car to the final position
         int distX = to.getX() - from.getX();
         int distY = to.getY() - from.getY();
 
@@ -23,7 +23,7 @@ public class Position {
         return new Position(newX, newY);
     }
 
-    public static int distance(Position pos1, Position pos2){
+    public static int distance(Position pos1, Position pos2){       // return the distance from two positions
         int diffY = pos2.getY() - pos1.getY();
         int diffX = pos2.getX() - pos1.getX();
         return(Math.abs(diffX) + Math.abs(diffY));
