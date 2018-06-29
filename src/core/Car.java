@@ -1,10 +1,11 @@
 package core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Car {
     private List<Ride> rideList;
-
+    private List<Boolean> isFree=new ArrayList<>();
     public Car(List<Ride> rideList) {   //constructor
         this.rideList = rideList;
     }
@@ -58,6 +59,18 @@ public class Car {
         boolean result = isLegal();
         rideList.remove(ride);
         return result;
+    }
+
+    public boolean getIsFree(int index) {
+        return isFree.get(index);
+    }
+
+    public void setIsFree(List<Boolean> isFree) {
+        this.isFree = isFree;
+    }
+
+    public void setIsFree(boolean value){
+        this.isFree.add(value);
     }
 
     public String toString(){
