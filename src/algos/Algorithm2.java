@@ -61,4 +61,13 @@ public class Algorithm2 implements Algorithm {
 
         return new Solution(cars);
     }
+
+    /**
+     * Implementation of testDescription
+     * @return a description of the algorithm
+     */
+    @Override
+    public String testDescription() {
+        return "This algorithm compares two rides using a score ....";
+    }
 }

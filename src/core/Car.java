@@ -3,62 +3,115 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing a Car
+ */
 public class Car {
+    /**
+     * List of rides that this car has to perform FIFO order
+     */
     private List<Ride> rideList;
     private List<Boolean> isFree=new ArrayList<>();     //useful for Algorithm3
 
+    /**
+     * Constructor given a list of rides
+     * @param rideList becomes car's rideList
+     */
     public Car(List<Ride> rideList) {
         this.rideList = rideList;
     }
 
+    /**
+     * Get car's rideList
+     * @return the list of rides
+     */
     public List<Ride> getRideList() {   //getter rideList
         return rideList;
     }
 
+    /**
+     * Change current rideList with a given list
+     * @param rideList = new list of rides
+     */
     public void setRideList(List<Ride> rideList) {  //setter rideList
         this.rideList = rideList;
     }
 
+    /**
+     * Get the position of this car at a given time, considering current assigned rides
+     * @param time query time
+     * @return the position of the car at query time
+     */
     public Position computePositionAtTime(int time){
-        Position currentPos = new Position(0,0);    //startingPoint from the docs
+        // start at position (0,0) at time 0
+        Position currentPos = new Position(0,0);
         int currentTime = 0;
 
+        // for each ride in this car's list
         for (Ride ride : rideList) {
+            // distance from the start position of next ride
             int distanceFromStart = Position.distance(currentPos, ride.getStartPos());
+            // time in which next ride will start
             int realStartTime = Math.max(currentTime+distanceFromStart, ride.getStartTime());
 
-            if(time <= realStartTime){
-                return Position.travel(ride.getStartPos(), currentPos,realStartTime - time);
+            //if query time is less than next ride's start time
+            if(time < realStartTime){
+                // position is obtained travelling from current position to starting position
+                return Position.travel(currentPos, ride.getStartPos(),time - currentTime);
             }else{
-                if(time < realStartTime+ ride.length()){
-                    return Position.travel(ride.getStartPos(), currentPos,time - realStartTime);
+                // else if query time is between next ride's stating time and completion time
+                if(time <= realStartTime + ride.length()){
+                    // position is obtained travelling from next ride's start position to end position
+                    return Position.travel(ride.getStartPos(), ride.getEndPos(),time - realStartTime);
                 }
                 else{
+                    // else query time is past this ride completion, update position and time and go on
                     currentTime = realStartTime+ ride.length();
                     currentPos = ride.getEndPos();
                 }
             }
         }
+        // if there is no ride or time exceeds every ride, return current position
         return currentPos;
     }
 
-    public boolean isLegal(){       //check if all rides that are already assigned are possible in terms of time
+    /**
+     * check if all rides that are already assigned are feasible
+     *
+     * @return boolean legal = true, non legal = false
+     */
+    public boolean isLegal(){
         int time = 0;
         Position position = new Position(0,0);      //startingPoint from the docs
+        // for each assigned ride
         for(Ride ride : rideList){
+            // time needed to start next ride
             time = Math.max(time + Position.distance(position, ride.getStartPos()), ride.getStartTime());
+            // time at completion
             time += ride.length();
+            // if time at completion exceeds the deadline return false
             if(time > ride.getEndTime())
                 return false;
+            // else update position with the end position of the ride
             position = ride.getEndPos();
         }
+        // if no deadline is missed then return true
         return true;
     }
 
-    public boolean testRide(Ride ride){     //useful to check if a ride is legal or not
+    /**
+     * Check if adding a ride as the last one is legal or not
+     * @param ride to be tested
+     * @return boolean: legal = true, non legal = false
+     */
+    public boolean testRide(Ride ride){
+        // add ride
         rideList.add(ride);
+        // perform is legal
         boolean result = isLegal();
+        // remove ride
         rideList.remove(ride);
+        // return result
         return result;
     }
 
@@ -74,6 +127,10 @@ public class Car {
         this.isFree.add(value);
     }
 
+    /**
+     * String representation of a Car
+     * @return string describing the car
+     */
     public String toString(){
         String s = "";
 

@@ -14,7 +14,7 @@ public class WasteAlgorithm implements Algorithm {
 
     @Override
     public Solution computeModel(Model model){
-        //model.sortCallsStart();
+        //model.sortRideStart();
 
         List<Ride> unassignedRides = new ArrayList<>(model.getRideList());
         List<Car> cars = new ArrayList<>();
@@ -105,5 +105,14 @@ public class WasteAlgorithm implements Algorithm {
     public void changeAlgorithmVariant(int variant){
         if(variant > 0 && variant < 4)
             algorihmVariant = variant;
+    }
+
+    /**
+     * Implementation of testDescription
+     * @return a description of the algorithm
+     */
+    @Override
+    public String testDescription() {
+        return "todo";
     }
 }

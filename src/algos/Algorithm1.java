@@ -10,7 +10,7 @@ public class Algorithm1 implements Algorithm {
 
     @Override
     public Solution computeModel(Model model) {
-        model.sortCallsStart();     //order the rides in terms of startingTime
+        model.sortRideStart();     //order the rides in terms of startingTime
 
         List<Ride> unassignedRides = model.getRideList();       //in this point the list contains all the rides in the model
         List<Car> cars = new ArrayList<>();
@@ -52,6 +52,15 @@ public class Algorithm1 implements Algorithm {
         return new Solution(cars);
     }
 
+    /**
+     * Implementation of testDescription
+     * @return a description of the algorithm
+     */
+    @Override
+    public String testDescription() {
+        return "Greedy algorithm, takes the ride with best score";
+    }
+
     private boolean canTakeCall(Car car, Ride ride){
         car.getRideList().add(ride);
         if(car.isLegal()){
@@ -86,4 +95,6 @@ public class Algorithm1 implements Algorithm {
             }
         }
     }
+
+
 }

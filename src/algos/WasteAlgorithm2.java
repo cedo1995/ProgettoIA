@@ -8,7 +8,7 @@ import java.util.List;
 public class WasteAlgorithm2 implements Algorithm {
     @Override
     public Solution computeModel(Model model) {
-        //model.sortCallsStart();
+        //model.sortRideStart();
 
         List<Ride> unassignedRides = new ArrayList<>(model.getRideList());
         List<Car> cars = new ArrayList<>();
@@ -94,6 +94,15 @@ public class WasteAlgorithm2 implements Algorithm {
             }
         }
         return new Solution(cars);
+    }
+
+    /**
+     * Implementation of testDescription
+     * @return a description of the algorithm
+     */
+    @Override
+    public String testDescription() {
+        return "todo";
     }
 
 }

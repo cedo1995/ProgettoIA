@@ -118,15 +118,12 @@ public class Algorithm3 implements Algorithm {
         return rideList.get(0);
     }
 
-    private boolean canTakeCall(Car car, Ride ride){
-        car.getRideList().add(ride);
-        if(car.isLegal()){
-            car.getRideList().remove(ride);
-            return true;
-        }
-        else{
-            car.getRideList().remove(ride);
-            return false;
-        }
+    /**
+     * Implementation of testDescription
+     * @return a description of the algorithm
+     */
+    @Override
+    public String testDescription() {
+        return "todo";
     }
 }
