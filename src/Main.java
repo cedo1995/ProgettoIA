@@ -15,8 +15,8 @@ public class Main {
         Agent agent = new Agent();
 
         // run some test
-        runTests(agent, new Algorithm1());
-        runTests(agent, new WasteAlgorithm2());
+        runTests(agent, new WasteAlgorithm(WasteAlgorithm.WASTE_MINUS_SCORE));
+        //runTests(agent, new WasteAlgorithm2());
     }
 
     /**

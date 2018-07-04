@@ -19,9 +19,9 @@ public class WasteAlgorithm2 implements Algorithm {
             int currentTime = 0;
             Position currentPosition = new Position(0, 0);
             List<Ride> assignedRides = car.getRideList();
-            List<Ride> border = new ArrayList<>(unassignedRides);
+            List<Ride> frontier = new ArrayList<>(unassignedRides);
 
-            while (border.size() > 0) {
+            while (frontier.size() > 0) {
                 Ride bestChoice = null;
                 int distance = 0;
                 int start = 0;
@@ -29,8 +29,8 @@ public class WasteAlgorithm2 implements Algorithm {
                 int finishAt = 0;
                 int score = 0;
 
-                for (int i = 0; i < border.size(); i++) {
-                    Ride ride = border.get(i);
+                for (int i = 0; i < frontier.size(); i++) {
+                    Ride ride = frontier.get(i);
                     if (car.testRide(ride)) {
                         if (bestChoice == null) {
                             bestChoice = ride;
@@ -65,12 +65,12 @@ public class WasteAlgorithm2 implements Algorithm {
                             }
                         }
                     } else {
-                        border.remove(i);
+                        frontier.remove(i);
                         i--;
                     }
                 }
                 if (bestChoice != null) {
-                    border.remove(bestChoice);
+                    frontier.remove(bestChoice);
                     assignedRides.add(bestChoice);
                     unassignedRides.remove(bestChoice);
                     currentTime = finishAt;
