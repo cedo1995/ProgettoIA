@@ -133,4 +133,15 @@ public class Model {
         return s;
     }
 
+    /**
+     * print some basic info about model
+     */
+    public void printModelInfo(){
+        String s = "Mappa: " + dimI + " x " +dimJ+ "\n";
+        s += "Numero di corse disponibili: "+ rideList.size() + "\n";
+        s+= "Numero di macchine a disposizione: " + n_car + "\n";
+
+        System.out.println(s);
+    }
+
 }

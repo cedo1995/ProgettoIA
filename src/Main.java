@@ -2,7 +2,6 @@ import algos.*;
 import core.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Main {
 
@@ -13,10 +12,8 @@ public class Main {
     public static void main(String[] args) {
         // the Agent
         Agent agent = new Agent();
-
         // run some test
-        runTests(agent, new WasteAlgorithm(WasteAlgorithm.WASTE_MINUS_SCORE));
-        //runTests(agent, new WasteAlgorithm2());
+        runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_MINUS_SCORE, ConcreteAlgorithm.ADD_IF_BETTER));
     }
 
     /**
@@ -47,6 +44,9 @@ public class Main {
             ModelParser parser = new ModelParser();
             Model model = parser.parseFile(path);
 
+            // print model info
+            model.printModelInfo();
+
             // set the model to agent
             agent.setModel(model);
 
@@ -55,11 +55,12 @@ public class Main {
             // compute the score of the solution
             int score = agent.computeScore(solution);
             // print partial score
-            System.out.println(score);
+            System.out.println("Partial score = " + score + "\n\n");
             // add partial score to total
             tot += score;
         }
         // print total score
-        System.out.println("Total score = "+tot);
+        System.out.println(" ");
+        System.out.println("TOTAL SCORE = "+tot);
     }
 }

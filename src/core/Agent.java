@@ -43,17 +43,9 @@ public class Agent {
         // initialize total score
         int score = 0;
         // for each car in solution
-        for (Car car: solution.getCarRides()) {
-            // for each ride assigned to car
-            for(Ride ride : car.getRideList()){
-                // if the car takes the ride on time add the bonus
-                if(car.computePositionAtTime(ride.getStartTime()).equals(ride.getStartPos())){
-                    score += model.getBonus();
-                }
-                // add the length of the ride as score
-                score += ride.length();
-            }
-        }
+        for (Car car: solution.getCarRides())
+            // sum score of each car
+            score += car.computeScore(model.getBonus());
         // return the score
         return score;
     }

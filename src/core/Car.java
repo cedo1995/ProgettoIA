@@ -1,5 +1,6 @@
 package core;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +114,38 @@ public class Car {
         rideList.remove(ride);
         // return result
         return result;
+    }
+
+    /**
+     * Computes total score gained with this car
+     * @param bonusValue value of bonus
+     * @return int score gained
+     */
+    public int computeScore(int bonusValue){
+        // initialize score variable to 0
+        int score =0;
+        // initialize time variable to 0
+        int time = 0;
+        // initialize position variable to position (0,0)
+        Position position = new Position(0,0);
+        // for each ride assigned to this car
+        for(Ride ride : rideList){
+            // compute at what time the ride will start
+            int startAt = Math.max(ride.getStartTime(), time + Position.distance(position,ride.getStartPos()));
+            // if the ride start at it's startTime
+            if(startAt == ride.getStartTime())
+                // add a bonus
+                score += bonusValue;
+            // add length of the ride as score
+            score += ride.length();
+
+            // update current time with the time in which the ride ends
+            time = startAt + ride.length();
+            // update current position with ride's end position;
+            position = ride.getEndPos();
+        }
+        // return total score
+        return score;
     }
 
     public boolean getIsFree(int index) {       //useful to check if a car is already assigned or not to another ride
