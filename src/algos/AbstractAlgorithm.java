@@ -8,17 +8,17 @@ import java.util.List;
 public abstract class AbstractAlgorithm implements Algorithm{
 
     /**
-     * Implementation of compute model
-     * @param model problem's model
+     * Implementation of compute problem
+     * @param problem problem to solve
      * @return a solution of the problem
      */
     @Override
-    public Solution computeModel(Model model){
+    public Solution solveProblem(Problem problem){
         // list of rides not yet assigned
-        List<Ride> unassignedRides = new ArrayList<>(model.getRideList());
+        List<Ride> unassignedRides = new ArrayList<>(problem.getRideList());
         // initialization of a list of cars for the solution
         List<Car> cars = new ArrayList<>();
-        for(int n = 0; n < model.getCarsNumber(); n++){
+        for(int n = 0; n < problem.getCarsNumber(); n++){
             cars.add(new Car(new ArrayList<>()));
         }
 
@@ -47,7 +47,7 @@ public abstract class AbstractAlgorithm implements Algorithm{
                     // if the rides ends before his endTime (not using Car::testRide due to performance optimization)
                     if(startsAt + ride.length() <= ride.getEndTime()){
                         // choose best solution comparing two rides
-                        bestChoice = compareRides(model, car ,currentTime, currentPosition, bestChoice, ride, frontier);
+                        bestChoice = compareRides(problem, car ,currentTime, currentPosition, bestChoice, ride, frontier);
                     } else {
                         // if it is not legal remove it
                         frontier.remove(i);
@@ -73,19 +73,19 @@ public abstract class AbstractAlgorithm implements Algorithm{
 
             // print percentage of completion
             carCount ++;
-            int perc = (carCount*100)/model.getCarsNumber();
+            int perc = (carCount*100)/ problem.getCarsNumber();
             System.out.print("\r Completed: "+perc+" %" );
         }
         // print
         System.out.println(" ");
         System.out.println("Performing optimization...");
         // return solution created through abstract method
-        return createSolution(model, cars, unassignedRides);
+        return createSolution(problem, cars, unassignedRides);
     }
 
     /**
      * Abstract method to compare rides
-     * @param model considered model
+     * @param problem considered problem
      * @param currentCar the car that will perform ride
      * @param currentTime time of completion of last ride or 0 if none assigned
      * @param currentPosition end position of last ride or (0,0) if none assigned
@@ -94,14 +94,14 @@ public abstract class AbstractAlgorithm implements Algorithm{
      * @param frontier list of possible ride to assign now (DO NOT MODIFY)
      * @return the best ride between the current choice and the alternative
      */
-    public abstract Ride compareRides(Model model, Car currentCar, int currentTime, Position currentPosition, Ride currentBest, Ride alternativeRide, List<Ride> frontier);
+    public abstract Ride compareRides(Problem problem, Car currentCar, int currentTime, Position currentPosition, Ride currentBest, Ride alternativeRide, List<Ride> frontier);
 
     /**
      * abstract creation of the solution. An optimization algorithm can be used in here
-     * @param model model we are considering
+     * @param problem problem we are considering
      * @param cars list of cars with assigned rides
      * @param unassignedRides list of rides that are not yet assigned
      * @return the solution
      */
-    public abstract Solution createSolution(Model model, List<Car> cars, List<Ride> unassignedRides);
+    public abstract Solution createSolution(Problem problem, List<Car> cars, List<Ride> unassignedRides);
 }

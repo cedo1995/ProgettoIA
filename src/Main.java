@@ -13,7 +13,7 @@ public class Main {
         // the Agent
         Agent agent = new Agent();
         // run some test
-        runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_MINUS_SCORE, ConcreteAlgorithm.ADD_IF_BETTER));
+        runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_POINTS_REL, ConcreteAlgorithm.ADD_IF_BETTER));
     }
 
     /**
@@ -24,8 +24,6 @@ public class Main {
     private static void runTests(Agent agent, Algorithm algo){
         // set the agent's algorithm
         agent.setAlgorithm(algo);
-        // print some information about algorithm
-        System.out.println(algo.testDescription());
 
         // initialize an array of relative paths and add the example files
         ArrayList<String> paths = new ArrayList<>();
@@ -40,15 +38,15 @@ public class Main {
         int tot = 0;
         // for every file
         for(String path: paths) {
-            // parse file to create the model
-            ModelParser parser = new ModelParser();
-            Model model = parser.parseFile(path);
+            // parse file to create the problem
+            ProblemParser parser = new ProblemParser();
+            Problem problem = parser.parseFile(path);
 
-            // print model info
-            model.printModelInfo();
+            // print problem info
+            problem.printProblemInfo();
 
-            // set the model to agent
-            agent.setModel(model);
+            // set the problem to agent
+            agent.setProblem(problem);
 
             // let the agent compute a solution
             Solution solution = agent.applyAlgorithm();

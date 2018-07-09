@@ -4,9 +4,9 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Class representing problem's model
+ * Class representing the problem
  */
-public class Model {
+public class Problem {
     /**
      * dimension of the map expressed in coordinates I for height and J for width
      */
@@ -31,7 +31,7 @@ public class Model {
 
 
     /**
-     * Constructor of problem's model
+     * Constructor of problem
      * @param dimI height of map
      * @param dimJ width of map
      * @param bonus bonus for taking a ride on time
@@ -39,7 +39,7 @@ public class Model {
      * @param cars  number of cars available
      * @param rideList list of available rides
      */
-    public Model(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Ride> rideList) {
+    public Problem(int dimI, int dimJ, int bonus, int maxTime, int cars, List<Ride> rideList) {
         // initialization of fields
         this.dimI = dimI;
         this.dimJ = dimJ;
@@ -116,11 +116,11 @@ public class Model {
     }
 
     /**
-     * String representation of the model
-     * @return string representation of the model
+     * String representation of the problem
+     * @return string representation of the problem
      */
     public String toString() {
-        String s = "Modello con: \n";
+        String s = "Problema con: \n";
         s += dimI + " righe \n";
         s += dimJ + " colonne \n";
         s += maxTime + " come tempo massimo \n";
@@ -134,9 +134,9 @@ public class Model {
     }
 
     /**
-     * print some basic info about model
+     * print some basic info about the problem
      */
-    public void printModelInfo(){
+    public void printProblemInfo(){
         String s = "Mappa: " + dimI + " x " +dimJ+ "\n";
         s += "Numero di corse disponibili: "+ rideList.size() + "\n";
         s+= "Numero di macchine a disposizione: " + n_car + "\n";

@@ -5,17 +5,17 @@ import core.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import core.*;
+
 public class Algorithm3 implements Algorithm {
 
     @Override
-    public Solution computeModel(Model model) {
+    public Solution solveProblem(Problem problem) {
 
         List<Car> cars = new ArrayList<>();
-        for(int n = 0; n < model.getCarsNumber(); n++){
+        for(int n = 0; n < problem.getCarsNumber(); n++){
             cars.add(new Car(new ArrayList<>()));
         }
-        ScoredMap scoredMap=new ScoredMap(model);
+        ScoredMap scoredMap=new ScoredMap(problem);
         System.out.println(scoredMap.getStartingRidesMap()+"");
         Position actualPosition = new Position(0,0);
         int time=0;
@@ -69,11 +69,11 @@ public class Algorithm3 implements Algorithm {
 
         }
         /*List<Car> cars = new ArrayList<>();
-        for(int n = 0; n < model.getCarsNumber(); n++){
+        for(int n = 0; n < problem.getCarsNumber(); n++){
             cars.add(new Car(new ArrayList<>()));
         }
-        for (int i=0;i<model.getDimI();i++){
-            for (int j=0;j<model.getDimJ();j++){
+        for (int i=0;i<problem.getDimI();i++){
+            for (int j=0;j<problem.getDimJ();j++){
                 Position p=new Position(i,j);
                 List<Ride> alreadyDone=new ArrayList<>();
                 for (Ride r:a.getStartingRidesMap().get(p)){
@@ -118,12 +118,4 @@ public class Algorithm3 implements Algorithm {
         return rideList.get(0);
     }
 
-    /**
-     * Implementation of testDescription
-     * @return a description of the algorithm
-     */
-    @Override
-    public String testDescription() {
-        return "todo";
-    }
 }

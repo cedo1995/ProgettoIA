@@ -5,19 +5,19 @@ package core;
  */
 public class Agent {
     /**
-     * Agent keeps a problem's model and an algorithm to solve it
+     * Agent keeps a problem and an algorithm to solve it
      */
-    private Model model;
+    private Problem problem;
     private Algorithm algorithm;
 
     /**
      * Constructor of Agent
-     * @param model model of the problem to solve
+     * @param problem problem of the problem to solve
      * @param algorithm algorithm to solve the problem
      */
-    public Agent(Model model, Algorithm algorithm){ //Agent's constructor
+    public Agent(Problem problem, Algorithm algorithm){ //Agent's constructor
         // initialization of attributes
-        this.model = model;
+        this.problem = problem;
         this.algorithm = algorithm;
     }
 
@@ -27,15 +27,15 @@ public class Agent {
     public Agent(){ }
 
     /**
-     * Apply algorithm to model and get the solution
+     * Apply algorithm to problem and get the solution
      * @return Solution to the problem
      */
     public Solution applyAlgorithm(){
-        return algorithm.computeModel(model);
+        return algorithm.solveProblem(problem);
     }
 
     /**
-     * Compute the score of a solution given the current problem's model
+     * Compute the score of a solution given the current problem
      * @param solution solution to be computed
      * @return score as an integer
      */
@@ -45,17 +45,17 @@ public class Agent {
         // for each car in solution
         for (Car car: solution.getCarRides())
             // sum score of each car
-            score += car.computeScore(model.getBonus());
+            score += car.computeScore(problem.getBonus());
         // return the score
         return score;
     }
 
     /**
-     * Set Agent's problem's model
-     * @param model model of the problem
+     * Set Agent's problem
+     * @param problem problem of the problem
      */
-    public void setModel(Model model){
-        this.model = model;
+    public void setProblem(Problem problem){
+        this.problem = problem;
     }
 
     /**

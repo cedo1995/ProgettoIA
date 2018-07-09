@@ -6,19 +6,19 @@ import java.util.*;
 import java.util.List;
 
 public class ScoredMap {
-    private Model model;
+    private Problem problem;
     private Position point;
     private HashMap<Position,List<Ride> > startingRidesMap;
     private HashMap<Position,List<Ride> > endingRidesMap;
-    public ScoredMap(Model m){
-        this.model=m;
+    public ScoredMap(Problem m){
+        this.problem =m;
         //this.point=pos;
         List<Ride> rideList=m.getRideList();
         startingRidesMap = new HashMap<>();
         endingRidesMap = new HashMap<>();
         for (Ride r:rideList){
-            for (int i=0;i<model.getDimI();i++){
-                for (int j=0;j<model.getDimJ();j++){
+            for (int i = 0; i< problem.getDimI(); i++){
+                for (int j = 0; j< problem.getDimJ(); j++){
                     Position pos=new Position(i,j);
                     if (r.getStartPos().equals(pos)){
                         startingRidesMap.get(pos).add(r);    //for each positions of the map there are rides that start in that point

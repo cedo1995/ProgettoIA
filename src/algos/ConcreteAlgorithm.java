@@ -26,7 +26,7 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
     /**
      * Selection rule chosen for this algorithm
      */
-    private final int seletionRule;
+    private final int selectionRule;
 
     /**
      * Optimization rule chosen for this algorithm
@@ -35,34 +35,24 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
 
     /**
      * Construction of algorithm class
-     * @param seletionRule the selection rule to use
+     * @param selectionRule the selection rule to use
      * @param optimizationRule the optimization rule to use
      */
-    public ConcreteAlgorithm(int seletionRule, int optimizationRule){
-        if(seletionRule < 0 || seletionRule > 3)
+    public ConcreteAlgorithm(int selectionRule, int optimizationRule){
+        if(selectionRule < 0 || selectionRule > 3)
             System.out.println("Unknown selection rule");
         if(optimizationRule>=0 || optimizationRule<-2)
             System.out.println("Unknown optimization rule");
 
         // set rules
-        this.seletionRule = seletionRule;
+        this.selectionRule = selectionRule;
         this.optimizationRule = optimizationRule;
     }
 
 
-
-    /**
-     * Implementation of testDescription
-     * @return a description of the algorithm
-     */
-    @Override
-    public String testDescription() {
-        return "todo";
-    }
-
     /**
      * Compares the current best choice to assign to current car with another ride and return the best one.
-     * @param model considered model
+     * @param problem considered problem
      * @param currentCar the car that will perform ride
      * @param currentTime time of completion of last ride or 0 if none assigned
      * @param currentPosition end position of last ride or (0,0) if none assigned
@@ -72,7 +62,7 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
      * @return the best choice between current one and the other ride
      */
     @Override
-    public Ride compareRides(Model model, Car currentCar, int currentTime, Position currentPosition, Ride currentBest, Ride alternativeRide, List<Ride> frontier) {
+    public Ride compareRides(Problem problem, Car currentCar, int currentTime, Position currentPosition, Ride currentBest, Ride alternativeRide, List<Ride> frontier) {
         // if current best is null (first loop or there's no assignable ride)
         if(currentBest == null)
             // return the alternative ride
@@ -89,14 +79,14 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
             int score2 = alternativeRide.length();
             // add bonus to scores if deserved
             if (Position.distance(currentPosition, currentBest.getStartPos()) <= currentBest.getStartTime() - currentTime) {
-                score1 += model.getBonus();
+                score1 += problem.getBonus();
             }
             if (Position.distance(currentPosition, alternativeRide.getStartPos()) <= alternativeRide.getStartTime() - currentTime) {
-                score2 += model.getBonus();
+                score2 += problem.getBonus();
             }
 
             // switch between rules of selection
-            switch (seletionRule){
+            switch (selectionRule){
                 // Minor waste rule
                 case 0 :
                     // if current choice has minor waste
@@ -132,10 +122,10 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
                 // Completion time minus score
                 case 2 :
                     // if current ride has minor completion time minus score
-                    if (waste1 + currentBest.length() - score1 <  waste2 + alternativeRide.length() - score2)
+                    if (waste1 + 20*currentBest.length() - 20*score1 <  waste2 + 20*alternativeRide.length() - 20*score2)
                         return currentBest;
                         // else if alternative ride has minor completion time minus score
-                    else if(waste1 + currentBest.length() - score1 >  waste2 + alternativeRide.length() - score2)
+                    else if(waste1 + 20*currentBest.length() - 20*score1 >  waste2 + 20*alternativeRide.length() - 20*score2)
                         // return alternative ride
                         return alternativeRide;
                     // else if there is a tie, choose the one that ends first
@@ -167,13 +157,13 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
 
     /**
      * Implementation of the abstract method to create a solution. This method switch between optimizing techniques.
-     * @param model model we are considering
+     * @param problem problem we are considering
      * @param cars list of cars with assigned rides
      * @param unassignedRides list of rides that are not yet assigned
      * @return optimized solution
      */
     @Override
-    public Solution createSolution(Model model, List<Car> cars, List<Ride> unassignedRides) {
+    public Solution createSolution(Problem problem, List<Car> cars, List<Ride> unassignedRides) {
         // switch between optimizing rules
         switch (optimizationRule){
             // No optimization rule
@@ -192,13 +182,13 @@ public class ConcreteAlgorithm extends AbstractAlgorithm {
                         // if ride has not been assigned
                         if(! assigned) {
                             // compute score gained with this car as it is
-                            int initialScore = car.computeScore(model.getBonus());
+                            int initialScore = car.computeScore(problem.getBonus());
                             // for each position in the list of rides assigned to this car
                             for (int i = 0; i < car.getRideList().size(); i++) {
                                 // try to assign the ride in this position
                                 car.getRideList().add(i, ride);
                                 // if the car after the assignment is still legal and the score is equal or higher
-                                if (car.isLegal() && car.computeScore(model.getBonus()) >= initialScore) {
+                                if (car.isLegal() && car.computeScore(problem.getBonus()) >= initialScore) {
                                     // leave the ride in that position and set flag to true
                                     assigned = true;
                                     // break this loop

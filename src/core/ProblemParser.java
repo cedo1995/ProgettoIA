@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * Class useful to parse a Model from a file
+ * Class useful to parse a Problem from a file
  */
-public class ModelParser {
+public class ProblemParser {
 
     /**
-     * Parse a file to obtain the model
+     * Parse a file to obtain a Problem
      * @param path of the desired file
-     * @return parsed Model
+     * @return parsed Problem
      */
-    public Model parseFile(String path){    //read input file
-        Model model = null;
+    public Problem parseFile(String path){    //read input file
+        Problem problem = null;
         try {
             // initialize reader and tokenizer
             BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -65,14 +65,14 @@ public class ModelParser {
                 // create a ride with growing id
                 rides.add(new Ride(r,startP,endP, startT, endT));
             }
-            // create the model
-            model = new Model(dimI, dimJ, bonus, maxTime, nCars, rides);    //create final model
+            // create the problem
+            problem = new Problem(dimI, dimJ, bonus, maxTime, nCars, rides);    //create final problem
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // if no IOException has occurred return the model, else null
-        return model;
+        // if no IOException has occurred return the problem, else null
+        return problem;
     }
 
 }
