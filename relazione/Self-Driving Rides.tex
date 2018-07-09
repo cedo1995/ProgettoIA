@@ -1,0 +1,66 @@
+%\title{plantila para el congreso Ciudades y Territorios Virtuales 2018}
+% From http://www.uncuyo.edu.ar/congresoctv2018/
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+\usepackage{fancyhdr}
+\usepackage{url}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength\headheight{80.0pt}
+\addtolength{\textheight}{-80.0pt}
+
+\begin{document}
+\title{Self-Driving Cars}
+\author[1]{Roberto Cedolin\\Paolo Bonato}
+\maketitle
+\section{Introduzione}
+Il progetto che abbiamo scelto è stato definito da Google, in particolare nella sezione HashCode: \url{https://hashcode.withgoogle.com/}\\
+L’obiettivo è di fare lo scheduling di un numero variabile di corse assegnandole ad uno dei veicoli disponibili.
+Per implementare la risoluzione di questo problema abbiamo deciso di utilizzare un linguaggio di programmazione ad alto livello come JAVA, il quale è una conoscenza comune data la formazione dei componenti del team e inoltre è facilmente portabile e supportato dai maggiori IDE.
+\section{Classi implementate}
+\begin{itemize}
+	\item \textbf{Agent}: dato un problema e un algoritmo, si occupa di applicare l’algoritmo al problema calcolando il punteggio finale (score) di una soluzione.
+	\item \textbf{Car}: individua una serie di sottoproblemi dati dall'assegnazione delle corse. Un veicolo è implementato grazie alla lista ordinata delle corse che gli sono state assegnate. \\
+	Questa classe è inoltre in grado di calcolare il punteggio ottenuto con l'assegnazione corrente (conoscendo però il relativo bonus), e controllare che l'assegnazione fatta rispetti i vincoli imposti dal problema.
+	\item \textbf{Ride}: assegna un identificatore ad ogni corsa, gestisce la \textit{startPosition} e la \textit{endPosition}, indica il tempo minimo per la partenza ed il tempo limite per l'arrivo.
+	\item \textbf{Problem}: comprende tutta la conoscenza iniziale (dimensione della mappa,tempo limite, punti bonus,lista di corse e numero di veicoli disponibili) e altri metodi utili all’ordinamento delle corse.
+	\item \textbf{ProblemParser}: Classe responsabile della creazione del problema, prende come input un file scritto utilizzando il formato specificato nel documento di presentazione del problema.
+	\item \textbf{Position}: aggrega la posizione verticale ed orizzontale in un'unica struttura dati e implementa metodi specifici per il problema.
+	\item \textbf{Solution}: comprende la lista di corse assegnate a ciascun veicolo e ne calcola il punteggio totale.
+\end{itemize}
+
+\section{Algoritmi implementati}
+Gli algoritmi sono stati implementati utilizzando una intefaccia comune \textbf{Algorithm} che permette di eseguire un algoritmo generico su di un problema di tipo \textit{Problem}.
+Tutti gli algoritmi implementati vedono l'assegnazione delle corse ad un veicolo come un sottoproblema indipendente.
+ 
+\begin{itemize}
+	\item \textbf{Algorithm:} Interfaccia comune agli algoritmi. Espone il metodo \textit{Solution solveProblem(Problem problem)}.
+	\item \textbf{LinearTimeTest:} Algoritmo a scopo esplorativo con complessità di tempo lieare per ogni sotto-problema. \\
+	Ad ogni corsa disponibile viene assegnato a priori un punteggio ottenuto sommando certe caratteristiche della corsa moltiplicate per un coefficente scelto. Le caratteristiche scelte sono: tempo di partenza minimo, tempo massimo di arrivo, distanza dal centro della mappa del punto di partenza, distanza dal centro della mappa del punto di arrivo e lunghezza del tragitto. \\
+	Questo algoritmo porta a pessimi risultati per cui si è deciso di alzare la complessità.
+	\item \textbf{AbstractAlgorithm:} Classe astratta per un algoritmo di complessità quadratica che per ogni sotto-problema individua la corsa migliore confrontandola con tutte le rimanenti prima di assegnarla. \\
+	L'implementazione di come confrontare le corse è lasciata all'algoritmo concreto. Questa classe lascia inoltre aperta un'altro metodo utile per effettuare migliorie alla soluzione.
+	\item \textbf{ConcreteAlgorithm:} Classe che concretizza l'algoritmo astratto e fornisce diverse strategie di risoluzione del problema. \\
+	\textbf{Strategie selezione delle corse:}
+	\begin{itemize}
+		\item \textbf{Miglior punteggio:} algoritmo di tipo greedy che assegna la corsa con il puteggio maggiore. Nel tentativo di massimizzare il punteggio guadagnato dal veicolo è legittimo considerare come euristica il punteggio della corsa in quanto non sovrastima mai il punteggio massimo ottenibile.
+		\item \textbf{Minor spreco di tempo:} algoritmo di tipo greedy che assegna la corsa con il minor spreco di tempo. Lo spreco di tempo è considerato pari alla distanza dell'inizio della corsa dalla posizione attuale del veicolo più eventualmente il tempo trascorso ad aspettare che la corsa possa partire. Nel tentativo di minimizzare lo spreco di tempo del veicolo è legittimo considerare come euristica il lo spreco di tempo della corsa in quanto non sovrastima mai il lo spreco totale.
+		\item \textbf{Minor spreco di tempo in rapporto al punteggio:} algoritmo di tipo greedy che assegna la corsa con il minor spreco di tempo in rapporto al punteggio. Non è un euristica ammissibile, in quanto il può sovrastimare il costo.
+		\item \textbf{Minor spreco con bonus:} algoritmo di tipo greedy che assegna la corsa che spreca meno tempo ma tiene conto del guadagno del bonus. Se la corsa ottiene un bonus il suo spreco di tempo viene considerato ridotto del valore del bonus moltiplicato per un coefficente. Si tratta di un euristica ammissibile perchè lo spreco di tempo totale non è mai sovrastimato. 
+		
+	\end{itemize}
+	\textbf{Strategie di miglioramento della soluzione:}
+	\begin{itemize}
+		\item \textbf{Nessuna ottimizzazione:} la soluzione corrente non viene ottimizzata.
+		\item \textbf{Hill Climbing:} si calcola il punteggio corrente e si prova ad assegnare le corse rimanenti in diverse posizioni. se il punteggio risulta migliorato (e la soluzione non viola i vincoli del problema) la corsa viene assegnata.
+	\end{itemize}
+	
+		
+\end{itemize}
+\end{document}

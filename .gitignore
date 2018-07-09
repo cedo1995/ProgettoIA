@@ -113,3 +113,7 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/java,windows,intellij
 \.idea/
+
+relazione/Self-Driving Rides\.aux
+
+relazione/Self-Driving Rides\.synctex\.gz
