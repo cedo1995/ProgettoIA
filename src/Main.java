@@ -13,17 +13,16 @@ public class Main {
     public static void main(String[] args) {
         // the Agent
         Agent agent = new Agent();
-        // run some test
-        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_POINTS_REL, ConcreteAlgorithm.ADD_IF_BETTER));
+        // run some tests
         //runTests(agent,new LinearTimeTest(1,1, 1,1,1))      //1000000
-        //runTests(agent, new ConcreteAlgorithm(0,-1));       //39912000
-        //runTests(agent, new ConcreteAlgorithm(0,-2));       //40039000
-        //runTests(agent, new ConcreteAlgorithm(1,-1));       //38131000
-        //runTests(agent,new ConcreteAlgorithm(1,-2));        //39204603
-        //runTests(agent,new ConcreteAlgorithm(2,-1));        //48684000
-        runTests(agent,new ConcreteAlgorithm(2,-2));        //48800000
-        //runTests(agent, new ConcreteAlgorithm(3,-1));       //37988302
-        //runTests(agent, new ConcreteAlgorithm(3,-2));       //43997763
+        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.LESS_WASTE,ConcreteAlgorithm.NO_OPTIMIZATION));             //39912000
+        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.LESS_WASTE,ConcreteAlgorithm.ADD_IF_BETTER));               //40039000
+        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_POINTS_REL,ConcreteAlgorithm.NO_OPTIMIZATION));       //38131000
+        //runTests(agent,new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_POINTS_REL,ConcreteAlgorithm.ADD_IF_BETTER));          //39204603
+        //runTests(agent,new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_MINUS_SCORE,ConcreteAlgorithm.NO_OPTIMIZATION));       //48684000
+        runTests(agent,new ConcreteAlgorithm(ConcreteAlgorithm.WASTE_MINUS_SCORE,ConcreteAlgorithm.ADD_IF_BETTER));           //48800000
+        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.BEST_SCORE,ConcreteAlgorithm.NO_OPTIMIZATION));             //37988302
+        //runTests(agent, new ConcreteAlgorithm(ConcreteAlgorithm.BEST_SCORE,ConcreteAlgorithm.ADD_IF_BETTER));               //43997763
     }
 
     /**
