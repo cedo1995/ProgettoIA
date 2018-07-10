@@ -40,6 +40,7 @@ public class ScoredMap {
     public HashMap<Position,List<Ride> > getEndingRidesMap() {      //return HashMap that links Position and the rides that ends there
         return endingRidesMap;
     }
+    public List<Ride> getEndingRidesMap(Position p){ return endingRidesMap.get(p); }
 
 
     public void sortCallsStart(Position p){         //return an ascending sort of rides in terms of their starting time

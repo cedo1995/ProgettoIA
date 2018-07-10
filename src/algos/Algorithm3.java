@@ -6,22 +6,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Algorithm3. This is a specific Algorithm that uses the starting position concept of a ride to choose it or another
+ */
 public class Algorithm3 implements Algorithm {
 
+    /**
+     * Implementation of compute problem
+     * @param problem problem to solve
+     * @return a solution of a problem
+     */
     @Override
     public Solution solveProblem(Problem problem) {
-
+        //Initialization of a list of cars for the solution
         List<Car> cars = new ArrayList<>();
         for(int n = 0; n < problem.getCarsNumber(); n++){
             cars.add(new Car(new ArrayList<>()));
         }
+        //creo
         ScoredMap scoredMap=new ScoredMap(problem);
-        System.out.println(scoredMap.getStartingRidesMap()+"");
-        Position actualPosition = new Position(0,0);
+        //System.out.println(scoredMap.getStartingRidesMap()+"");
+        Position currentPosition = new Position(0,0);
         int time=0;
         for (Car car:cars){
-            List<Ride> rideListCurrentPosition=scoredMap.getStartingRidesMap(actualPosition);
-            rideListCurrentPosition=isLegal(rideListCurrentPosition,time,actualPosition);
+            List<Ride> rideListCurrentPosition= scoredMap.getStartingRidesMap(currentPosition);
+            rideListCurrentPosition=isLegal(rideListCurrentPosition,time,currentPosition);
             List<Ride> bestRides=new ArrayList<>();
             List<Ride> possibleRides=new ArrayList<>();
             Ride bestChoice=null;
@@ -35,9 +44,7 @@ public class Algorithm3 implements Algorithm {
             }
             switch (bestRides.size()) {
                 case 0:
-                    if (possibleRides.size() == 0) {
-                        //finish = true;
-                    } else {
+                    if (possibleRides.size() != 0) {
                         bestRides = sortMinimumLength(possibleRides);
                         //ora gestisco la scelta della migliore corsa a parità di distanza confrontando quante corse ci sono nella
                         //posizione finale delle prime corse, da aggiustare il fatto che queste nuove devono essere pronte a partire
@@ -56,7 +63,7 @@ public class Algorithm3 implements Algorithm {
                     break;
 
             }
-            if (car.testRide(bestChoice)){
+            /*if (car.testRide(bestChoice)){
                 List<Ride> newRideList=car.getRideList();
                 newRideList.add(bestChoice);
                 car.setRideList(newRideList);
@@ -65,8 +72,11 @@ public class Algorithm3 implements Algorithm {
                     setFree.add(false);
                 }
                 car.setIsFree(setFree);
+            }*/
+            if(bestChoice!=null){
+                car.getRideList().add(bestChoice);
+                
             }
-
         }
         /*List<Car> cars = new ArrayList<>();
         for(int n = 0; n < problem.getCarsNumber(); n++){
